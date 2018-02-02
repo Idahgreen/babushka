@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title></title>
+</head>
+
+<body>
+    <div class="liste"> </div>
+
+    <section id="menuer">
+        <template class="menutemplate">
+
+    <div class="ret">
+    <h2 class="titel"></h2>
+    <img id="img">
+    <div class="descript"></div>
+    <div>Pris: <span class="pris"></span><br></div>
+
+       </div>
+    </template>
+    </section>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", hentJson);
+
+        let temp = document.querySelector(".menutemplate");
+        let dest = document.querySelector(".liste");
+
+        let ret;
+        async function hentJson() {
+            let jsonData = await fetch("menu.json");
+            ret = await jsonData.json();
+            vis(ret);
+        }
+
+        function vis(ret) {
+            ret.forEach(menu => {
+                let klon = temp.cloneNode(true).content;
+                klon.querySelector(".titel").textContent = menu.navn;
+                klon.getElementById("img").src = "imgs/small/" + menu.billede + "-sm.jpg";
+                klon.querySelector(".descript").textContent = menu.kortbeskrivelse;
+                klon.querySelector(".pris").textContent = menu.pris;
+                dest.appendChild(klon);
+            });
+        };
+    </script>
+</body>
+
+</html>
