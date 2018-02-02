@@ -3,8 +3,27 @@
     padding: 0;
 }
 
-#menuer {
+.liste {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     grid-auto-rows: auto;
+    grid-column-gap: 10px;
+    grid-row-gap: 15px;
+    margin: 1vw;
+    text-align: center;
+
+}
+
+article {
+    background-color: aqua;
+}
+
+button {
+    text-align: center;
+    padding: 3px;
+    border-radius: 5px;
+}
+
+nav {
+    text-align: center;
 }
