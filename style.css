@@ -14,7 +14,7 @@
 
 }
 
-article {
+.ret {
     background-color: aqua;
 }
 
@@ -26,4 +26,8 @@ button {
 
 nav {
     text-align: center;
+}
+
+.popup {
+    z-index: 0;
 }
