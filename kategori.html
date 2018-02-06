@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title></title>
+</head>
+
+<body>
+
+    <header>
+
+        <h1 class="page-overskrift"> Babuska Bistro</h1>
+    </header>
+    <nav>
+        <button id="filter-alle">Alle</button>
+        <button id="filter-forretter">forretter</button>
+        <button id="filter-hovedretter">hovedretter</button>
+        <button id="filter-desserter">desserter</button>
+        <button id="filter-sideorders">Side-orders</button>
+
+    </nav>
+    <h1 class="overskrift"> </h1>
+    <div class="liste"> </div>
+    <main>
+
+    </main>
+    <template class="menutemplate">
+    <article  class="ret">
+
+        <img id="img">
+        <h2 class="titel"> </h2>
+        <div class="descript" ></div>
+        <div>Pris: <span class="pris"></span><br></div>
+    </article>
+        </template>
+
+    <footer>
+        <section>
+            <adress></adress>
+            <aside></aside>
+        </section>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", hentJson);
+
+        let urlParams = new URLSearchParams(window.location.search);
+
+        let urlKategori = urlParams.get('kategori');
+
+        let ret;
+        async function hentJson() {
+            let jsonData = await fetch("menu.json");
+            ret = await jsonData.json();
+            vis(ret, "Menu");
+            lavFiltre();
+        }
+
+
+
+        function vis(ret, overskrift) {
+            let temp = document.querySelector(".menutemplate");
+            let dest = document.querySelector(".liste");
+            dest.innerHTML = "";
+            document.querySelector(".overskrift").textContent = overskrift;
+            ret.forEach(menu => {
+                if (menu.kategori == urlKategori) {
+                    console.log("Success", menu.kategori);
+                    let klon = temp.cloneNode(true).content;
+                    klon.querySelector(".titel").textContent = menu.navn;
+                    klon.getElementById("img").src = "imgs/small/" + menu.billede + "-sm.jpg";
+                    klon.querySelector(".descript").textContent = menu.kortbeskrivelse;
+                    klon.querySelector(".pris").textContent = menu.pris;
+                    klon.querySelector(".ret").setAttribute("data-id", menu.id);
+                    klon.querySelector("article").addEventListener("click", () => {
+                        location.href = "single.html?id=" + menu.id;
+                    });
+                    dest.appendChild(klon);
+                }
+            });
+        };
+
+        function lavFiltre() {
+            //sorter retter efter kategori
+            document.querySelector('#filter-alle').addEventListener("click", () => {
+                location.href = "index.html";
+            });
+            document.querySelector('#filter-forretter').addEventListener("click", () => {
+                location.href = "kategori.html?kategori=forretter";
+            });
+            document.querySelector('#filter-hovedretter').addEventListener("click", () => {
+                location.href = "kategori.html?kategori=hovedretter";
+            });
+            document.querySelector('#filter-desserter').addEventListener("click", () => {
+                location.href = "kategori.html?kategori=desserter";
+            });
+            document.querySelector('#filter-drikkevarer').addEventListener("click", () => {
+                location.href = "kategori.html?kategori=drikkevarer";
+            });
+
+            document.querySelector("#filter-sideorders").addEventListener("click", () => {
+                location.href = "kategori.html?kategori=sideorders";
+            });
+        }
+
+    </script>
+</body>
+
+</html>

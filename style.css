@@ -3,6 +3,16 @@
     padding: 0;
 }
 
+h1 {
+    font-family: sans-serif;
+    text-align: center;
+}
+
+.overskrift {
+    text-align: left;
+    font-size: 1.5em;
+}
+
 .liste {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -15,19 +25,18 @@
 }
 
 .ret {
-    background-color: aqua;
+    background-color: mintcream;
+    padding: 1vw;
+    border: 1px solid black;
 }
 
 button {
     text-align: center;
     padding: 3px;
     border-radius: 5px;
+
 }
 
 nav {
     text-align: center;
-}
-
-.popup {
-    z-index: 0;
 }
